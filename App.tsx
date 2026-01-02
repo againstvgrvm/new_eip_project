@@ -1,18 +1,18 @@
 
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Problem from './components/Problem';
-import Solution from './components/Solution';
-import MarketStats from './components/MarketStats';
-import Workflow from './components/Workflow';
-import Footer from './components/Footer';
-import ChatBot from './components/ChatBot';
-import { Users, BarChart3, Leaf, CheckCircle2, ChevronRight, ArrowRight } from 'lucide-react';
+import Navbar from './components/Navbar.tsx';
+import Hero from './components/Hero.tsx';
+import Problem from './components/Problem.tsx';
+import Solution from './components/Solution.tsx';
+import MarketStats from './components/MarketStats.tsx';
+import Workflow from './components/Workflow.tsx';
+import Footer from './components/Footer.tsx';
+import ChatBot from './components/ChatBot.tsx';
+import { Users, BarChart3, Leaf, ArrowRight } from 'lucide-react';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#fefcf8]">
       <Navbar />
       <main>
         <Hero />
