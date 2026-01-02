@@ -1,9 +1,9 @@
-
 import React from 'react';
 import Navbar from './components/Navbar.tsx';
 import Hero from './components/Hero.tsx';
 import Problem from './components/Problem.tsx';
 import Solution from './components/Solution.tsx';
+import Marketplace from './components/Marketplace.tsx';
 import MarketStats from './components/MarketStats.tsx';
 import Workflow from './components/Workflow.tsx';
 import Footer from './components/Footer.tsx';
@@ -18,6 +18,7 @@ const App: React.FC = () => {
         <Hero />
         <Problem />
         <Solution />
+        <Marketplace />
         <MarketStats />
         <Workflow />
         

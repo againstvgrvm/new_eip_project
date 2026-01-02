@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Leaf } from 'lucide-react';
 
@@ -11,6 +10,13 @@ const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems = [
+    { name: 'Accueil', href: '#' },
+    { name: 'Solution', href: '#solution' },
+    { name: 'Marché', href: '#marketplace' },
+    { name: 'Impact', href: '#impact' },
+  ];
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -26,13 +32,13 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-10">
-          {['Accueil', 'Problème', 'Solution', 'Impact'].map((item) => (
+          {navItems.map((item) => (
             <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`} 
+              key={item.name} 
+              href={item.href} 
               className="text-emerald-950 font-semibold hover:text-emerald-700 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-yellow-400 after:transition-all hover:after:w-full"
             >
-              {item}
+              {item.name}
             </a>
           ))}
           <button className="bg-yellow-400 text-emerald-950 px-7 py-2.5 rounded-full font-bold hover:bg-yellow-300 transition-all shadow-md active:scale-95">
@@ -49,10 +55,16 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-emerald-100 p-8 flex flex-col gap-6 animate-in slide-in-from-top duration-300">
-          <a href="#" className="text-xl font-bold text-emerald-950" onClick={() => setIsOpen(false)}>Accueil</a>
-          <a href="#problème" className="text-xl font-bold text-emerald-950" onClick={() => setIsOpen(false)}>Problème</a>
-          <a href="#solution" className="text-xl font-bold text-emerald-950" onClick={() => setIsOpen(false)}>Solution</a>
-          <a href="#impact" className="text-xl font-bold text-emerald-950" onClick={() => setIsOpen(false)}>Impact</a>
+          {navItems.map((item) => (
+            <a 
+              key={item.name} 
+              href={item.href} 
+              className="text-xl font-bold text-emerald-950" 
+              onClick={() => setIsOpen(false)}
+            >
+              {item.name}
+            </a>
+          ))}
           <button className="bg-emerald-950 text-white px-6 py-4 rounded-2xl font-bold shadow-lg">
             Se Connecter
           </button>
