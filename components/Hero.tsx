@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { ChevronRight, PhoneCall, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { PhoneCall, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (

@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Users, Store, UserPlus, Globe } from 'lucide-react';
+import { Users, Store, Globe } from 'lucide-react';
 
 const MarketStats: React.FC = () => {
   return (

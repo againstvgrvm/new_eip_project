@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { AlertCircle, Truck, Layers, EyeOff, MinusCircle } from 'lucide-react';
+import { Truck, Layers, EyeOff, MinusCircle } from 'lucide-react';
 
 const Problem: React.FC = () => {
   const problems = [
