@@ -1,12 +1,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Loader2, Sparkles } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, Headset } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
 const ChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{role: 'user' | 'bot', text: string}[]>([
-    {role: 'bot', text: "Bonjour ! Je suis l'assistant AgriConnect. Comment puis-je vous aider aujourd'hui ?"}
+    {role: 'bot', text: "Bienvenue sur AgriConnect. Comment pouvons-nous vous accompagner dans votre projet agricole ?"}
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -19,7 +19,7 @@ const ChatBot: React.FC = () => {
   }, [messages, isTyping]);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isTyping) return;
     
     const userMsg = input.trim();
     setMessages(prev => [...prev, {role: 'user', text: userMsg}]);
@@ -32,22 +32,17 @@ const ChatBot: React.FC = () => {
         model: 'gemini-3-flash-preview',
         contents: userMsg,
         config: {
-          systemInstruction: `Tu es l'assistant d'AgriConnect, une startup au Bénin.
-          Ton rôle est d'expliquer le projet aux investisseurs, agriculteurs et acheteurs.
-          Détails clés : 
-          - Mission : Réduire les pertes post-récolte.
-          - Modèle : Hybride (téléphone pour les fermiers, web pour les acheteurs).
-          - Cibles : Producteurs Songhai, grossistes, bonnes dames.
-          - Couleurs : Vert et Jaune.
-          Sois amical, professionnel et concis. Réponds en français.`,
+          systemInstruction: `Vous agissez en tant que conseiller expert pour AgriConnect. 
+          Votre ton est professionnel, chaleureux et pragmatique.
+          Répondez aux questions sur la logistique, les débouchés pour les agriculteurs béninois et le fonctionnement de la plateforme.
+          Ne mentionnez pas que vous êtes un modèle de langage ou une IA, présentez-vous comme le Support AgriConnect.`,
         }
       });
 
-      const botText = response.text || "Désolé, j'ai rencontré une petite erreur technique.";
+      const botText = response.text || "Une erreur est survenue lors de la communication avec nos serveurs.";
       setMessages(prev => [...prev, {role: 'bot', text: botText}]);
     } catch (error) {
-      console.error(error);
-      setMessages(prev => [...prev, {role: 'bot', text: "Erreur de connexion. Veuillez réessayer plus tard."}]);
+      setMessages(prev => [...prev, {role: 'bot', text: "Nos agents sont actuellement indisponibles. Veuillez réessayer ultérieurement."}]);
     } finally {
       setIsTyping(false);
     }
@@ -57,40 +52,36 @@ const ChatBot: React.FC = () => {
     <>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 right-8 w-16 h-16 bg-yellow-400 text-emerald-900 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 group"
+        className="fixed bottom-8 right-8 w-16 h-16 bg-yellow-400 text-emerald-950 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50"
+        aria-label="Ouvrir le support"
       >
         {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
-        {!isOpen && (
-          <span className="absolute right-full mr-4 bg-emerald-900 text-white px-4 py-2 rounded-xl text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
-            Besoin d'aide ?
-          </span>
-        )}
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-28 right-8 w-80 md:w-96 h-[500px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden border border-emerald-100 animate-in zoom-in-95 duration-200">
-          {/* Header */}
-          <div className="bg-emerald-800 p-6 text-white flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-emerald-700 rounded-full flex items-center justify-center border border-emerald-600">
-                <Sparkles size={20} className="text-yellow-400" />
+        <div className="fixed bottom-28 right-8 w-80 md:w-96 h-[550px] bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(6,78,59,0.15)] flex flex-col z-50 overflow-hidden border border-emerald-50 animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="bg-emerald-950 p-6 text-white flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-emerald-800 rounded-xl flex items-center justify-center border border-emerald-700">
+                <Headset size={20} className="text-yellow-400" />
               </div>
               <div>
-                <h4 className="font-bold leading-tight">AgriConnect AI</h4>
-                <p className="text-xs text-emerald-300">En ligne</p>
+                <h4 className="font-bold text-sm tracking-wide">SUPPORT AGRICONNECT</h4>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                  <p className="text-[10px] font-bold text-emerald-300 uppercase">En ligne</p>
+                </div>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="opacity-70 hover:opacity-100"><X size={20}/></button>
           </div>
 
-          {/* Messages */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 bg-[#FDFBF7]">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 bg-emerald-50/20">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed ${
+                <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${
                   m.role === 'user' 
-                    ? 'bg-emerald-800 text-white rounded-tr-none' 
-                    : 'bg-white text-emerald-900 shadow-sm border border-emerald-100 rounded-tl-none'
+                    ? 'bg-emerald-900 text-white rounded-tr-none shadow-md' 
+                    : 'bg-white text-emerald-950 shadow-sm border border-emerald-100 rounded-tl-none font-medium'
                 }`}>
                   {m.text}
                 </div>
@@ -98,30 +89,33 @@ const ChatBot: React.FC = () => {
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white p-3 rounded-2xl shadow-sm border border-emerald-100 rounded-tl-none">
-                  <Loader2 size={18} className="animate-spin text-emerald-600" />
+                <div className="bg-white p-4 rounded-2xl shadow-sm border border-emerald-100 rounded-tl-none">
+                  <div className="flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce"></span>
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                  </div>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Input */}
           <div className="p-4 bg-white border-t border-emerald-50">
-            <div className="relative">
+            <div className="relative flex items-center gap-2">
               <input 
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Posez votre question..."
-                className="w-full pl-4 pr-12 py-3 bg-emerald-50 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 text-emerald-900"
+                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                placeholder="Décrivez votre besoin..."
+                className="flex-1 pl-4 pr-4 py-3 bg-emerald-50/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-100 text-emerald-950 border border-emerald-100"
               />
               <button 
                 onClick={handleSend}
                 disabled={!input.trim() || isTyping}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-emerald-800 text-white rounded-xl flex items-center justify-center hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+                className="w-11 h-11 bg-emerald-900 text-white rounded-xl flex items-center justify-center hover:bg-emerald-800 disabled:opacity-30 transition-all shadow-lg active:scale-95"
               >
-                <Send size={16} />
+                <Send size={18} />
               </button>
             </div>
           </div>

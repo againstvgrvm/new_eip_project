@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriConnect - Révolution Agricole</title>
+    <title>AgriConnect | Solution Logistique Agricole B2B</title>
+    <meta name="description" content="AgriConnect connecte les producteurs agricoles aux marchés grossistes pour réduire les pertes post-récolte en Afrique de l'Ouest.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +21,7 @@
             color: #064e3b;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
         h1, h2, h3, .serif {
             font-family: 'Crimson Pro', serif;
@@ -27,14 +29,28 @@
         #root {
             min-height: 100vh;
         }
+        /* Scrollbar custom for a premium feel */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #fefcf8;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #064e3b33;
+          border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #064e3b66;
+        }
     </style>
     <script type="importmap">
     {
       "imports": {
-        "react": "https://esm.sh/react@^19.2.3",
-        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-        "react/": "https://esm.sh/react@^19.2.3/",
-        "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+        "react": "https://esm.sh/react@^19.0.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.0.0/",
+        "react/": "https://esm.sh/react@^19.0.0/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.471.0",
         "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
       }
     }
@@ -42,7 +58,6 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- Point d'entrée de l'application -->
     <script type="module" src="./index.tsx"></script>
 </body>
 </html>

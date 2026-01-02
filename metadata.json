@@ -1,5 +1,9 @@
 {
-  "name": "AgriConnect - Cultiver l'Avenir",
-  "description": "Une plateforme logistique et commerciale innovante pour réduire les pertes post-récolte et connecter les producteurs agricoles au Bénin et en Afrique de l'Ouest.",
+  "name": "AgriConnect - Solution de Logistique Agricole",
+  "short_name": "AgriConnect",
+  "description": "Plateforme d'optimisation de la chaîne de valeur agricole en Afrique de l'Ouest. Connecter les producteurs aux marchés.",
+  "theme_color": "#064e3b",
+  "background_color": "#fefcf8",
+  "display": "standalone",
   "requestFramePermissions": []
 }
