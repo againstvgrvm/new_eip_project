@@ -2,6 +2,10 @@ import React from 'react';
 import { PhoneCall, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 const Hero: React.FC = () => {
+  const scrollToMarket = () => {
+    document.getElementById('marketplace')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden">
       {/* Background Decorative Circles */}
@@ -29,7 +33,10 @@ const Hero: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5">
-              <button className="group bg-emerald-950 hover:bg-emerald-900 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all shadow-2xl shadow-emerald-900/20 flex items-center justify-center gap-3 active:scale-95">
+              <button 
+                onClick={scrollToMarket}
+                className="group bg-emerald-950 hover:bg-emerald-900 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all shadow-2xl shadow-emerald-900/20 flex items-center justify-center gap-3 active:scale-95"
+              >
                 Explorer le marché <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" size={22} />
               </button>
               <button className="bg-white hover:bg-yellow-50 text-emerald-950 border-2 border-emerald-950/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-sm active:scale-95">

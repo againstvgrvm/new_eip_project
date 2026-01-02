@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar.tsx';
 import Hero from './components/Hero.tsx';
 import Problem from './components/Problem.tsx';
@@ -8,12 +8,18 @@ import MarketStats from './components/MarketStats.tsx';
 import Workflow from './components/Workflow.tsx';
 import Footer from './components/Footer.tsx';
 import ChatBot from './components/ChatBot.tsx';
+import AuthModal from './components/AuthModal.tsx';
 import { Users, BarChart3, Leaf, ArrowRight } from 'lucide-react';
 
 const App: React.FC = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  const openAuth = () => setIsAuthModalOpen(true);
+
   return (
     <div className="min-h-screen bg-[#fefcf8]">
-      <Navbar />
+      <Navbar onOpenAuth={openAuth} />
+      
       <main>
         <Hero />
         <Problem />
@@ -79,7 +85,10 @@ const App: React.FC = () => {
                  Rejoignez la plateforme qui transforme l'agriculture ouest-africaine. Que vous soyez producteur ou acheteur, AgriConnect est votre allié.
                </p>
                <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                 <button className="bg-yellow-400 hover:bg-yellow-300 text-emerald-950 px-12 py-6 rounded-2xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl flex items-center justify-center gap-3">
+                 <button 
+                  onClick={openAuth}
+                  className="bg-yellow-400 hover:bg-yellow-300 text-emerald-950 px-12 py-6 rounded-2xl font-bold text-xl transition-all transform hover:scale-105 shadow-2xl flex items-center justify-center gap-3 active:scale-95"
+                 >
                    Nous Rejoindre <ArrowRight size={24} />
                  </button>
                  <button className="bg-white/5 hover:bg-white/10 text-white border border-white/20 px-12 py-6 rounded-2xl font-bold text-xl transition-all backdrop-blur-md">
@@ -90,8 +99,10 @@ const App: React.FC = () => {
           </div>
         </section>
       </main>
+
       <Footer />
       <ChatBot />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };

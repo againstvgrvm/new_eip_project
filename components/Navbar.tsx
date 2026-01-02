@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Leaf } from 'lucide-react';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onOpenAuth: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -20,7 +24,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm h-16' : 'bg-transparent h-24'
+      scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm h-20' : 'bg-transparent h-24'
     }`}>
       <div className="container mx-auto px-6 h-full flex items-center justify-between">
         <div className="flex items-center gap-3 group cursor-pointer">
@@ -41,31 +45,40 @@ const Navbar: React.FC = () => {
               {item.name}
             </a>
           ))}
-          <button className="bg-yellow-400 text-emerald-950 px-7 py-2.5 rounded-full font-bold hover:bg-yellow-300 transition-all shadow-md active:scale-95">
+          <button 
+            onClick={onOpenAuth}
+            className="bg-yellow-400 text-emerald-950 px-7 py-3 rounded-xl font-bold hover:bg-yellow-300 transition-all shadow-md active:scale-95"
+          >
             Se Connecter
           </button>
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-emerald-950" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        <button className="md:hidden text-emerald-950 p-2" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-emerald-100 p-8 flex flex-col gap-6 animate-in slide-in-from-top duration-300">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-emerald-100 p-8 flex flex-col gap-6 animate-in slide-in-from-top duration-300 shadow-xl">
           {navItems.map((item) => (
             <a 
               key={item.name} 
               href={item.href} 
-              className="text-xl font-bold text-emerald-950" 
+              className="text-xl font-bold text-emerald-950 p-2" 
               onClick={() => setIsOpen(false)}
             >
               {item.name}
             </a>
           ))}
-          <button className="bg-emerald-950 text-white px-6 py-4 rounded-2xl font-bold shadow-lg">
+          <button 
+            onClick={() => {
+              setIsOpen(false);
+              onOpenAuth();
+            }}
+            className="bg-emerald-950 text-white px-6 py-5 rounded-2xl font-bold shadow-lg text-center"
+          >
             Se Connecter
           </button>
         </div>
